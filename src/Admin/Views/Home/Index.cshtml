@@ -1,0 +1,35 @@
+﻿@using Admin.ViewModels
+@model InfoViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    @foreach (var type in Model.InfoTypeList)
+    {
+        @*<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#@type">@type.ToUpperInvariant()</button>*@
+        <div id="@type" > @*class="collapse in"*@
+            <div class="panel panel-default">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @foreach (var sourceInfo in Model.GetSourceInfoListByType(type))
+                            {
+                                <th>@sourceInfo.Name</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach (var sourceInfo in Model.GetSourceInfoListByType(type))
+                            {
+                                <td class="@(sourceInfo.Mode == 2 ? "danger" : "success")">@sourceInfo.Value1 | @sourceInfo.Value2</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
