@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Admin.Controllers
+namespace Admin.Model
 {
     [DataContract]
     public class Info

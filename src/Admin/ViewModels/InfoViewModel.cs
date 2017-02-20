@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Admin.Controllers;
+using Admin.Model;
 
 namespace Admin.ViewModels
 {
