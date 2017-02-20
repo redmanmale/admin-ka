@@ -39,7 +39,7 @@ namespace Admin
             var watermarkInQ = long.Parse(watermarks["inQ"]);
             var watermarkSpeed = long.Parse(watermarks["speed"]);
 
-            services.AddSingleton<IStatRouterService, StatRouterService>(f => new StatRouterService(propDict));
+            services.AddSingleton<IStatService, StatService>(f => new StatService(propDict));
             services.AddSingleton<IConfig, Config>(f => new Config(propDict.Keys.ToList(), watermarkInQ, watermarkSpeed));
         }
 

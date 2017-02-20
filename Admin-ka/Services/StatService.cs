@@ -8,11 +8,11 @@ using Newtonsoft.Json;
 
 namespace Admin.Services
 {
-    public class StatRouterService : IStatRouterService
+    public class StatService : IStatService
     {
         private readonly IReadOnlyDictionary<string, HttpClient> _clientDict;
 
-        public StatRouterService(IReadOnlyDictionary<string, Uri> uriDict)
+        public StatService(IReadOnlyDictionary<string, Uri> uriDict)
         {
             _clientDict = uriDict.ToDictionary(uri => uri.Key, uri => new HttpClient { BaseAddress = uri.Value, Timeout = TimeSpan.FromSeconds(10) });
         }

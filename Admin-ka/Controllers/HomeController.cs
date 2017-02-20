@@ -13,12 +13,12 @@ namespace Admin.Controllers
     public class HomeController : Controller
     {
         private readonly IConfig _config;
-        private readonly IStatRouterService _statRouterService;
+        private readonly IStatService _statService;
 
-        public HomeController(IConfig config, IStatRouterService statRouterService)
+        public HomeController(IConfig config, IStatService statService)
         {
             _config = config;
-            _statRouterService = statRouterService;
+            _statService = statService;
         }
 
         public async Task<IActionResult> Index()
@@ -33,7 +33,7 @@ namespace Admin.Controllers
 
         private async Task<List<Info>> GetStatAsync(string type)
         {
-            var baseDict = await _statRouterService.GetStatsAsync(type);
+            var baseDict = await _statService.GetStatsAsync(type);
             return baseDict?.Values?.Select(ToInfo).ToList();
         }
 

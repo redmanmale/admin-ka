@@ -4,7 +4,7 @@ using Admin.Model;
 
 namespace Admin.Services
 {
-    public interface IStatRouterService
+    public interface IStatService
     {
         Task<IReadOnlyDictionary<string, StatContract>> GetStatsAsync(string type);
     }
