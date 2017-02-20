@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Admin.Controllers;
 using Admin.Model;
 
 namespace Admin.ViewModels
@@ -9,9 +8,9 @@ namespace Admin.ViewModels
     {
         private readonly IReadOnlyDictionary<string, IReadOnlyList<Info>> _statList;
 
-        public IReadOnlyList<string> InfoTypeList => _statList.Keys.ToList();
+        public IReadOnlyList<string> InfoTypeList => _statList.Keys.OrderBy(f => f).ToList();
 
-        public IReadOnlyList<Info> GetSourceInfoListByType(string type) => _statList[type];
+        public IReadOnlyList<Info> GetSourceInfoListByType(string type) => _statList[type] ?? new List<Info>();
 
         public InfoViewModel(IReadOnlyDictionary<string, IReadOnlyList<Info>> statList)
         {

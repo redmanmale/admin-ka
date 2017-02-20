@@ -15,6 +15,6 @@ namespace Admin.Model
         public string Value2 { get; set; }
 
         [DataMember]
-        public int Mode { get; set; } 
+        public bool IsDanger { get; set; } 
     }
 }

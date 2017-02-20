@@ -2,7 +2,7 @@
 @model InfoViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Stats";
 }
 
 <div class="container">
@@ -25,7 +25,7 @@
                     <tr>
                         @foreach (var sourceInfo in Model.GetSourceInfoListByType(type))
                         {
-                            <td class="@(sourceInfo.Mode == 2 ? "danger" : "success")">@sourceInfo.Value1 | @sourceInfo.Value2</td>
+                            <td class="@(sourceInfo.IsDanger ? "danger" : "success")">@sourceInfo.Value1 | @sourceInfo.Value2</td>
                         }
                     </tr>
                     </tbody>

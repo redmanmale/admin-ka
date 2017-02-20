@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Admin.Services;
 using Microsoft.AspNetCore.Builder;
@@ -12,8 +11,6 @@ namespace Admin
 {
     public class Startup
     {
-        private readonly IReadOnlyList<string> _types = new List<string> { "source", "router", "proxy", "import" };
-
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -36,8 +33,14 @@ namespace Admin
                 .GetChildren()
                 .ToDictionary(f => f.Key, g => new Uri(g.Value));
 
+            var watermarks = Configuration
+                .GetSection("Watermarks");
+
+            var watermarkInQ = long.Parse(watermarks["inQ"]);
+            var watermarkSpeed = long.Parse(watermarks["speed"]);
+
             services.AddSingleton<IStatRouterService, StatRouterService>(f => new StatRouterService(propDict));
-            services.AddSingleton<IConfig, Config>(f => new Config(_types));
+            services.AddSingleton<IConfig, Config>(f => new Config(propDict.Keys.ToList(), watermarkInQ, watermarkSpeed));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

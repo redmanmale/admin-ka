@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Admin.Model;
@@ -11,38 +12,48 @@ namespace Admin.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfig _config;
         private readonly IStatRouterService _statRouterService;
-        private readonly IReadOnlyList<string> _infoTypeList;
 
         public HomeController(IConfig config, IStatRouterService statRouterService)
         {
+            _config = config;
             _statRouterService = statRouterService;
-            _infoTypeList = config.Types;
         }
 
         public async Task<IActionResult> Index()
         {
-            var infoDict = _infoTypeList.ToDictionary<string, string, IReadOnlyList<Info>>(type => type, type => new List<Info>());
+            var cdict = new ConcurrentDictionary<string, IReadOnlyList<Info>>();
 
-            foreach (var type in _infoTypeList)
-            {
-                var baseDict = await _statRouterService.GetStatsAsync(type);
-                var list = baseDict.Values.Select(stat => stat.IsSpeed ? new Info
+            var tasks = _config.Types.Select(async type => cdict[type] = await GetStatAsync(type));
+            await Task.WhenAll(tasks);
+
+            return View(new InfoViewModel(cdict));
+        }
+
+        private async Task<List<Info>> GetStatAsync(string type)
+        {
+            var baseDict = await _statRouterService.GetStatsAsync(type);
+            return baseDict?.Values?.Select(ToInfo).ToList();
+        }
+
+        private Info ToInfo(StatContract stat)
+        {
+            return stat.IsSpeed
+                ? new Info
                 {
                     Name = stat.Name,
                     Value1 = $"SpeedInstant: {stat.SpeedIns.FormatSize()}",
-                    Value2 = $"SpeedAverage: {stat.SpeedAvg.FormatSize()}"
-                } : new Info
+                    Value2 = $"SpeedAverage: {stat.SpeedAvg.FormatSize()}",
+                    IsDanger = stat.SpeedIns <= _config.WatermarkSpeed
+                }
+                : new Info
                 {
                     Name = stat.Name,
                     Value1 = $"All: {stat.CountAll}",
-                    Value2 = $"InQ: {stat.CountInQ}"
-                }).ToList();
-
-                infoDict[type] = list;
-            }
-
-            return View(new InfoViewModel(infoDict));
+                    Value2 = $"InQ: {stat.CountInQ}",
+                    IsDanger = stat.CountInQ >= _config.WatermarkInQ
+                };
         }
 
         public IActionResult Error()

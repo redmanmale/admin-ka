@@ -6,9 +6,15 @@ namespace Admin.Services
     {
         public IReadOnlyList<string> Types { get; }
 
-        public Config(IReadOnlyList<string> types)
+        public long WatermarkSpeed { get; }
+
+        public long WatermarkInQ { get; }
+
+        public Config(IReadOnlyList<string> types, long watermarkInQ, long watermarkSpeed)
         {
             Types = types;
+            WatermarkInQ = watermarkInQ;
+            WatermarkSpeed = watermarkSpeed;
         }
     }
 }
