@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Admin.Services
 {
@@ -9,5 +10,7 @@ namespace Admin.Services
         long WatermarkSpeed { get; }
 
         long WatermarkInQ { get; }
+
+        TimeSpan RefreshInterval { get; }
     }
 }

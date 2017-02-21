@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Admin.Services
 {
@@ -10,11 +11,14 @@ namespace Admin.Services
 
         public long WatermarkInQ { get; }
 
-        public Config(IReadOnlyList<string> types, long watermarkInQ, long watermarkSpeed)
+        public TimeSpan RefreshInterval { get; }
+
+        public Config(IReadOnlyList<string> types, long watermarkInQ, long watermarkSpeed, TimeSpan refreshInterval)
         {
             Types = types;
             WatermarkInQ = watermarkInQ;
             WatermarkSpeed = watermarkSpeed;
+            RefreshInterval = refreshInterval;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Admin.ViewModels
     {
         private readonly IReadOnlyDictionary<string, IReadOnlyList<Info>> _statList;
 
-        public IReadOnlyList<string> InfoTypeList => _statList.Keys.OrderBy(f => f).ToList();
+        public IReadOnlyList<string> InfoTypeList => _statList.Keys.OrderByDescending(f => f).ToList();
 
         public IReadOnlyList<Info> GetSourceInfoListByType(string type) => _statList[type] ?? new List<Info>();
 

@@ -9,10 +9,7 @@ namespace Admin.Model
         public string Name { get; set; }
 
         [DataMember]
-        public string Value1 { get; set; }
-
-        [DataMember]
-        public string Value2 { get; set; }
+        public string Content { get; set; }
 
         [DataMember]
         public bool IsDanger { get; set; } 

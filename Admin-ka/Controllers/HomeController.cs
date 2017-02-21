@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Admin.Model;
@@ -28,6 +29,7 @@ namespace Admin.Controllers
             var tasks = _config.Types.Select(async type => cdict[type] = await GetStatAsync(type));
             await Task.WhenAll(tasks);
 
+            Response.Headers.Add("Refresh", _config.RefreshInterval.TotalSeconds.ToString(CultureInfo.InvariantCulture));
             return View(new InfoViewModel(cdict));
         }
 
@@ -43,15 +45,13 @@ namespace Admin.Controllers
                 ? new Info
                 {
                     Name = stat.Name,
-                    Value1 = $"SpeedInstant: {stat.SpeedIns.FormatSize()}",
-                    Value2 = $"SpeedAverage: {stat.SpeedAvg.FormatSize()}",
+                    Content = $"SpeedInst: {stat.SpeedIns.FormatSize()} | SpeedAvg: {stat.SpeedAvg.FormatSize()}",
                     IsDanger = stat.SpeedIns <= _config.WatermarkSpeed
                 }
                 : new Info
                 {
                     Name = stat.Name,
-                    Value1 = $"All: {stat.CountAll}",
-                    Value2 = $"InQ: {stat.CountInQ}",
+                    Content = $"All: {stat.CountAll} | InQ: {stat.CountInQ}",
                     IsDanger = stat.CountInQ >= _config.WatermarkInQ
                 };
         }

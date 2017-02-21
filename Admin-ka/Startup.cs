@@ -39,8 +39,10 @@ namespace Admin
             var watermarkInQ = long.Parse(watermarks["inQ"]);
             var watermarkSpeed = long.Parse(watermarks["speed"]);
 
+            var refreshInterval = TimeSpan.FromMilliseconds(long.Parse(Configuration["RefreshInterval"]));
+
             services.AddSingleton<IStatService, StatService>(f => new StatService(propDict));
-            services.AddSingleton<IConfig, Config>(f => new Config(propDict.Keys.ToList(), watermarkInQ, watermarkSpeed));
+            services.AddSingleton<IConfig, Config>(f => new Config(propDict.Keys.ToList(), watermarkInQ, watermarkSpeed, refreshInterval));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

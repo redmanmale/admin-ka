@@ -8,26 +8,25 @@
 <div class="container">
     @foreach (var type in Model.InfoTypeList)
     {
-        @*<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#@type">@type.ToUpperInvariant()</button>*@
-        <div id="@type" > @*class="collapse in"*@
+        <div id="@type">
             <div class="panel panel-default">
                 <div class="panel panel-title"><div style="padding: 5px">@type</div></div>
                 <table class="table">
                     <thead>
-                    <tr>
-                        @foreach (var sourceInfo in Model.GetSourceInfoListByType(type))
-                        {
-                            <th>@sourceInfo.Name</th>
-                        }
-                    </tr>
+                        <tr>
+                            @foreach (var sourceInfo in Model.GetSourceInfoListByType(type))
+                            {
+                                <th>@sourceInfo.Name</th>
+                            }
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        @foreach (var sourceInfo in Model.GetSourceInfoListByType(type))
-                        {
-                            <td class="@(sourceInfo.IsDanger ? "danger" : "success")">@sourceInfo.Value1 | @sourceInfo.Value2</td>
-                        }
-                    </tr>
+                        <tr>
+                            @foreach (var sourceInfo in Model.GetSourceInfoListByType(type))
+                            {
+                                <td class="@(sourceInfo.IsDanger ? "danger" : "success")">@sourceInfo.Content</td>
+                            }
+                        </tr>
                     </tbody>
                 </table>
             </div>
