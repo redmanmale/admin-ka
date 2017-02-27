@@ -1,7 +1,11 @@
 # Admin-ka
 
-It's a very simple ASP.Net Core GUI for internal/debug administration/monitoring.
+It's a very simple ASP.Net Core GUI for internal administration/monitoring.
 Also there's a demo back-end (on Node.js) for this GUI.
+
+It allows you to monitor the whole your system at once. Metrics (from external services) which exceed the configurable thresholds would be highlighted and attract attention.
+
+![admin-ka](https://puu.sh/umGCK/f19d378c1b.png)
 
 ## Getting started
 
