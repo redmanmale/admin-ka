@@ -1,3 +1,14 @@
 # Admin-ka
 
-Простой ASP.Net Core GUI - админка комплекса.
+It's a very simple ASP.Net Core GUI for internal adminstration (currently only stats viewer).
+
+## Getting started
+
+Just run `prepare-and-run.bat` batch, it will get all things ready and run both apps (client and server).
+After that you could just go to http://localhost:5001.
+
+If you want to run GUI on a different PC without all that (Requirements) installed you might use `dotnet publish --configuration Release` to create a portable artefact.
+
+## Requirements
+
+You must have Node.js, npm, bower and .Net Core SDK installed and have all needed exe in your PATH.
