@@ -9,7 +9,7 @@ It allows you to monitor the whole your system at once. Metrics (from external s
 
 ## Getting started
 
-Just run `prepare-and-run.bat`, it will get all things ready, run both apps (client and server) and open http://localhost:5001.
+Just run `prepare-and-run.bat`, it will get all things ready, run both apps (client and server) and open [default start page](http://localhost:5001).
 
 Or you could do it manually:
 
