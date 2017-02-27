@@ -1,6 +1,7 @@
 # Admin-ka
 
-It's a very simple ASP.Net Core GUI for internal adminstration (currently only stats viewer).
+It's a very simple ASP.Net Core GUI for internal adminstration.
+Also there's a demo backend (on Node.js) for this GUI in DemoServer folder.
 
 ## Getting started
 
@@ -11,4 +12,4 @@ If you want to run GUI on a different PC without all that (Requirements) install
 
 ## Requirements
 
-You must have Node.js, npm, bower and .Net Core SDK installed and have all needed exe in your PATH.
+You must have installed Node.js, npm, bower and .Net Core SDK.
