@@ -3,6 +3,8 @@ _site/
 Properties/
 node_modules/
 Admin-ka/wwwroot/lib/
+*.min.css
+*.min.js
 
 # Use git add -f to force override .sln when required. Not needed in most cases.
 # git add -f myProj.sln
