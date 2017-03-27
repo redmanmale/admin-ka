@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Admin.Model;
 
 namespace Admin.Services
 {
     public interface IStatService
     {
-        Task<IReadOnlyDictionary<string, StatContract>> GetStatsAsync(string type);
+        Task<StatContract[]> GetStatsAsync(string type);
+
+        Task<ModuleInfo> GetInfoAsync(string type);
     }
 }

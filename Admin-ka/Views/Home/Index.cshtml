@@ -1,20 +1,20 @@
 ﻿@using Admin.ViewModels
-@model InfoViewModel
+@model StatViewModel
 
 @{
     ViewData["Title"] = "Stats";
 }
 
 <div class="container">
-    @foreach (var type in Model.InfoTypeList)
+    @foreach (var type in Model.GetModuleKeys)
     {
         <div id="@type">
             <div class="panel panel-default">
-                <div class="panel panel-title"><div style="padding: 5px">@type</div></div>
+                <div class="panel panel-title"><div style="padding: 5px">@Model.GetModuleNameByKey(type)</div></div>
                 <table class="table">
                     <thead>
                         <tr>
-                            @foreach (var sourceInfo in Model.GetSourceInfoListByType(type))
+                            @foreach (var sourceInfo in Model.GetModuleStatByKey(type))
                             {
                                 <th>@sourceInfo.Name</th>
                             }
@@ -22,7 +22,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            @foreach (var sourceInfo in Model.GetSourceInfoListByType(type))
+                            @foreach (var sourceInfo in Model.GetModuleStatByKey(type))
                             {
                                 <td class="@(sourceInfo.IsDanger ? "danger" : "success")">@sourceInfo.Content</td>
                             }

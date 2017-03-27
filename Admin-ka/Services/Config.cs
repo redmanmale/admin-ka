@@ -5,7 +5,7 @@ namespace Admin.Services
 {
     public class Config : IConfig
     {
-        public IReadOnlyList<string> Types { get; }
+        public IReadOnlyList<string> ModuleKey { get; }
 
         public long WatermarkSpeed { get; }
 
@@ -15,7 +15,7 @@ namespace Admin.Services
 
         public Config(IReadOnlyList<string> types, long watermarkInQ, long watermarkSpeed, TimeSpan refreshInterval)
         {
-            Types = types;
+            ModuleKey = types;
             WatermarkInQ = watermarkInQ;
             WatermarkSpeed = watermarkSpeed;
             RefreshInterval = refreshInterval;

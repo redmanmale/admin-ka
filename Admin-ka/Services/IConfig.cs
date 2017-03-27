@@ -5,7 +5,7 @@ namespace Admin.Services
 {
     public interface IConfig
     {
-        IReadOnlyList<string> Types { get; }
+        IReadOnlyList<string> ModuleKey { get; }
 
         long WatermarkSpeed { get; }
 

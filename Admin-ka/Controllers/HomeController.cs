@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,36 +23,64 @@ namespace Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var cdict = new ConcurrentDictionary<string, IReadOnlyList<Info>>();
+            var statDict = new Dictionary<string, Task<List<ModuleStat>>>();
+            var infoDict = new Dictionary<string, Task<ModuleInfo>>();
 
-            var tasks = _config.Types.Select(async type => cdict[type] = await GetStatAsync(type));
-            await Task.WhenAll(tasks);
+            var resDict = new Dictionary<string, Stat>();
+
+            foreach (var type in _config.ModuleKey)
+            {
+                infoDict.Add(type, _statService.GetInfoAsync(type));
+                statDict.Add(type, GetStatAsync(type));
+                resDict.Add(type, new Stat());
+            }
+
+            foreach (var type in _config.ModuleKey)
+            {
+                resDict[type].ModuleInfo = await infoDict[type];
+                resDict[type].ModuleStat = await statDict[type];
+            }
 
             Response.Headers.Add("Refresh", _config.RefreshInterval.TotalSeconds.ToString(CultureInfo.InvariantCulture));
-            return View(new InfoViewModel(cdict));
+            return View(new StatViewModel(resDict));
         }
 
-        private async Task<List<Info>> GetStatAsync(string type)
+        private async Task<List<ModuleStat>> GetStatAsync(string type)
         {
             var baseDict = await _statService.GetStatsAsync(type);
-            return baseDict?.Values?.Select(ToInfo).ToList();
+            return baseDict?.Select(ToInfo).ToList();
         }
 
-        private Info ToInfo(StatContract stat)
+        private ModuleStat ToInfo(StatContract stat)
         {
-            return stat.IsSpeed
-                ? new Info
-                {
-                    Name = stat.Name,
-                    Content = $"SpeedInst: {stat.SpeedIns.FormatSize()} | SpeedAvg: {stat.SpeedAvg.FormatSize()}",
-                    IsDanger = stat.SpeedIns <= _config.WatermarkSpeed
-                }
-                : new Info
-                {
-                    Name = stat.Name,
-                    Content = $"All: {stat.CountAll} | InQ: {stat.CountInQ}",
-                    IsDanger = stat.CountInQ >= _config.WatermarkInQ
-                };
+            switch (stat.StatMode)
+            {
+                case StatMode.Speed:
+                    {
+                        return new ModuleStat
+                        {
+                            Name = stat.Name,
+                            Content = FormatMetrics(stat.Metrics, true),
+                            IsDanger = stat.Metrics["SpeedNow"].IsMetricInDanger(_config.WatermarkSpeed, WatermarkType.LessOrEqual)
+                        };
+                    }
+                case StatMode.Count:
+                    {
+                        return new ModuleStat
+                        {
+                            Name = stat.Name,
+                            Content = FormatMetrics(stat.Metrics),
+                            IsDanger = stat.Metrics["InQ"].IsMetricInDanger(_config.WatermarkInQ, WatermarkType.More)
+                        };
+                    }
+                default:
+                    return null;
+            }
+        }
+
+        private static string FormatMetrics(IReadOnlyDictionary<string, long> metrics, bool format = false)
+        {
+            return string.Join(" | ", metrics.Select(pair => $"{pair.Key}: {(format ? pair.Value.FormatSize() : pair.Value.ToString())}"));
         }
 
         public IActionResult Error()
