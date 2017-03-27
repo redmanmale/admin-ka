@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Receiving",
+    "Metrics": {
+      "SpeedNow": 120,
+      "SpeedAvg": 10874
+    },
+    "StatMode": 1
+  },
+  {
+    "Name": "Processing",
+    "Metrics": {
+      "All": 3434,
+      "InQ": 0
+    },
+    "StatMode": 0
+  },
+  {
+    "Name": "Sending",
+    "Metrics": {
+      "All": 3434,
+      "InQ": 0
+    },
+    "StatMode": 0
+  }
+]

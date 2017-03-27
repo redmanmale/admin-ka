@@ -1,0 +1,42 @@
+[
+  {
+    "Name": "Receiving",
+    "Metrics": {
+      "SpeedNow": 8778,
+      "SpeedAvg": 6567
+    },
+    "StatMode": 1
+  },
+  {
+    "Name": "Processing 1",
+    "Metrics": {
+      "All": 78987,
+      "InQ": 0
+    },
+    "StatMode": 0
+  },
+  {
+    "Name": "Processing 2",
+    "Metrics": {
+      "All": 432443,
+      "InQ": 0
+    },
+    "StatMode": 0
+  },
+  {
+    "Name": "Processing 3",
+    "Metrics": {
+      "All": 67657,
+      "InQ": 0
+    },
+    "StatMode": 0
+  },
+  {
+    "Name": "Sending",
+    "Metrics": {
+      "All": 78677,
+      "InQ": 0
+    },
+    "StatMode": 0
+  }
+]

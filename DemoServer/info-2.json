@@ -1,0 +1,10 @@
+{
+  "ModuleName": "Demo module three",
+  "ModuleVersion": "2.19.43.31-RTM",
+  "Workers": [
+    "Receiving",
+    "Processing 1",
+    "Processing 2",
+    "Sending"
+  ]
+}

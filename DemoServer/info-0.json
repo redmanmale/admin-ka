@@ -1,0 +1,9 @@
+{
+  "ModuleName": "Demo module one",
+  "ModuleVersion": "1.0.0.0-DEV",
+  "Workers": [
+    "Receiving",
+    "Processing",
+    "Sending"
+  ]
+}
