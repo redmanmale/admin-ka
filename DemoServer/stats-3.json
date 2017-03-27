@@ -30,13 +30,5 @@
       "InQ": 87
     },
     "StatMode": 0
-  },
-  {
-    "Name": "Processing 4",
-    "Metrics": {
-      "All": 7898,
-      "InQ": 0
-    },
-    "StatMode": 0
   }
 ]

@@ -3,7 +3,8 @@
   "ModuleVersion": "1.0.0.0-DEV",
   "Workers": [
     "Receiving",
-    "Processing",
+    "Processing 1",
+    "Processing 2",
     "Sending"
   ]
 }

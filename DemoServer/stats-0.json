@@ -8,9 +8,17 @@
     "StatMode": 1
   },
   {
-    "Name": "Processing",
+    "Name": "Processing 1",
     "Metrics": {
       "All": 3434,
+      "InQ": 0
+    },
+    "StatMode": 0
+  },
+  {
+    "Name": "Processing 2",
+    "Metrics": {
+      "All": 67657,
       "InQ": 0
     },
     "StatMode": 0

@@ -24,14 +24,6 @@
     "StatMode": 0
   },
   {
-    "Name": "Processing 3",
-    "Metrics": {
-      "All": 67657,
-      "InQ": 0
-    },
-    "StatMode": 0
-  },
-  {
     "Name": "Sending",
     "Metrics": {
       "All": 78677,
