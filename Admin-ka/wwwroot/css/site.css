@@ -36,3 +36,12 @@ textarea {
     display: none
   }
 }
+
+.root {
+    display: table;
+    margin: auto auto auto -20px;
+}
+
+.panel-header {
+    padding: 5px;
+}
