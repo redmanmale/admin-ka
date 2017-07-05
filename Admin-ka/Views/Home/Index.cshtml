@@ -9,27 +9,30 @@
     @foreach (var type in Model.GetModuleKeys)
     {
         <div id="@type">
-            <div class="panel panel-default">
-                <div class="panel panel-title panel-header">@Model.GetModuleNameByKey(type)</div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            @foreach (var sourceInfo in Model.GetModuleStatByKey(type))
-                            {
-                                <th>@sourceInfo.Name</th>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            @foreach (var sourceInfo in Model.GetModuleStatByKey(type))
-                            {
-                                <td class="@(sourceInfo.IsDanger ? "danger" : "success")">@sourceInfo.Content</td>
-                            }
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            @if (Model.GetModuleStatByKey(type).Any())
+            {
+                <div class="panel panel-default">
+                    <div class="panel panel-title panel-header">@Model.GetModuleNameByKey(type)</div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var sourceInfo in Model.GetModuleStatByKey(type))
+                                {
+                                    <th>@sourceInfo.Name</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @foreach (var sourceInfo in Model.GetModuleStatByKey(type))
+                                {
+                                    <td class="@(sourceInfo.IsDanger ? "danger" : "success")">@sourceInfo.Content</td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
         </div>
     }
 </div>
