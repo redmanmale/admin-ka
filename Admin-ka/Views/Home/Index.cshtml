@@ -5,15 +5,15 @@
     ViewData["Title"] = "Stats";
 }
 
-<div class="container root">
+<div>
     @foreach (var type in Model.GetModuleKeys)
     {
-        <div id="@type">
+        <div id="@type" class="col-xs-12">
             @if (Model.GetModuleStatByKey(type).Any())
             {
                 <div class="panel panel-default">
                     <div class="panel panel-title panel-header">@Model.GetModuleNameByKey(type)</div>
-                    <table class="table">
+                    <table class="table table-condensed no-margin">
                         <thead>
                             <tr>
                                 @foreach (var sourceInfo in Model.GetModuleStatByKey(type))
