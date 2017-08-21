@@ -24,4 +24,4 @@ If you want to run GUI on a different PC without all that stuff installed (see r
 
 You must have installed [Node.js](https://nodejs.org/en/download/current), [npm](https://www.hacksparrow.com/install-node-js-and-npm-on-windows.html), [bower](https://bower.io/#install-bower) and [.Net Core SDK](https://www.microsoft.com/net/download/core#/current).
 
-I've got .NET Core 1.1.1 SDK 1.0.3 and .NET Command Line Tools (1.0.3).
+I've got .NET Core 2.0.0 SDK and .NET Command Line Tools (2.0.0).
