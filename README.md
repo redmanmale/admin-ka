@@ -9,7 +9,7 @@ It allows you to monitor the whole your system at once. Metrics (from external s
 
 ## Getting started
 
-Just run `prepare-and-run.bat`, it will get all things ready, run both apps (client and server) and open [default start page](http://localhost:5001).
+Just run `prepare-and-run.bat` (or `prepare-and-run-ubuntu.sh`), it will get all things ready, run both apps (client and server) and open [default start page](http://localhost:5001).
 
 Or you could do it manually:
 
@@ -22,6 +22,6 @@ If you want to run GUI on a different PC without all that stuff installed (see r
 
 ## Requirements
 
-You must have installed [Node.js](https://nodejs.org/en/download/current), [npm](https://www.hacksparrow.com/install-node-js-and-npm-on-windows.html), [bower](https://bower.io/#install-bower) and [.Net Core SDK](https://www.microsoft.com/net/download/core#/current).
+You must have installed [Node.js, npm](https://nodejs.org/en/download/current), [bower](https://bower.io/#install-bower) and [.Net Core SDK](https://www.microsoft.com/net/download/core#/current).
 
-I've got .NET Core 2.0.0 SDK and .NET Command Line Tools (2.0.0).
+I've got .NET Core SDK 2.1.302.
