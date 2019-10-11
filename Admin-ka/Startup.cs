@@ -1,10 +1,14 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Admin.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 
 namespace Admin
@@ -33,16 +37,16 @@ namespace Admin
                 .GetChildren()
                 .ToDictionary(f => f.Key, g => new Uri(g.Value));
 
-            var watermarks = Configuration
-                .GetSection("Watermarks");
+            var watermarks = Configuration.GetSection("Watermarks");
 
             var watermarkInQ = long.Parse(watermarks["inQ"]);
             var watermarkSpeed = long.Parse(watermarks["speed"]);
-
             var refreshInterval = TimeSpan.FromMilliseconds(long.Parse(Configuration["RefreshInterval"]));
 
-            services.AddSingleton<IStatService, StatService>(f => new StatService(propDict));
-            services.AddSingleton<IConfig, Config>(f => new Config(propDict.Keys.ToList(), watermarkInQ, watermarkSpeed, refreshInterval));
+            var config = new Config(propDict.Keys.ToList(), watermarkInQ, watermarkSpeed, refreshInterval);
+            services.AddSingleton<IConfig, Config>(f => config);
+            services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, StatService>();
+            services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -53,7 +57,6 @@ namespace Admin
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
             }
             else
             {
@@ -61,7 +64,19 @@ namespace Admin
             }
 
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/lib")),
+                RequestPath = new PathString("/lib")
+            });
+
+            app.UseSignalR(routes => routes.MapHub<AdminHub>("/adminHub"));
             app.UseMvc(routes => routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"));
         }
+    }
+
+    public class AdminHub : Hub
+    {
+
     }
 }

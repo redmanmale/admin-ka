@@ -18,5 +18,9 @@ namespace Admin.ViewModels
         {
             _statDict = statDict;
         }
+
+        public StatViewModel()
+        {
+        }
     }
 }
